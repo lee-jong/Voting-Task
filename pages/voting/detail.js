@@ -88,6 +88,7 @@ class VotingDetail extends React.Component {
             list.splice(idx, 1, this.state.info)
             localStorage.setItem('list', JSON.stringify(list))
             this.sumVote()
+            alert("투표가 완료되었습니다.")
         })
     }
 
@@ -170,10 +171,19 @@ class VotingDetail extends React.Component {
                     if(findIdx >= 0 && category[chkPoint[findIdx]] != '' && category[chkPoint[findIdx]] != undefined ){
                         let modifyCategory = info.category
                         modifyCategory.splice(index, 1, {[oriKeys] : category[chkPoint[findIdx]]})
+                        let entryUser = info.currVoting.entryUser
+                        let modifyEntryUser = entryUser.filter(vote => vote[Object.keys(vote)] == oriValues)
+                        modifyEntryUser.map(() => {
+                            let idx2 = entryUser.findIndex(vote => vote[Object.keys(vote)] == oriValues)
+                            entryUser.splice(idx2, 1, { [entryUser[idx2][Object.keys(entryUser[idx2])]] : info.category[index][oriKeys]})
+                        })
                         this.setState({
                             info : {
                                 ...this.state.info,
-                                category : modifyCategory
+                                category : modifyCategory,
+                                currVoting : {
+                                    entryUser
+                                }
                             }
                         })
                     }
