@@ -202,7 +202,6 @@ class VotingDetail extends React.Component {
 
     render(){
         const { info, selItem, currVote, userId, modify, status } = this.state
-        console.log("!!", info)
         return (
             <div className="detail">
                 <div className="detailBox">
